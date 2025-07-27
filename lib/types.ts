@@ -47,7 +47,7 @@ export interface RoomWithMembers extends Room {
   members?: (RoomMember & { 
     user: Pick<User, 'id' | 'username' | 'name' | 'avatar'> 
   })[];
-  owner?: Pick<User, 'id' | 'username' | 'name'>;
+  owner?: Pick<User, 'id' | 'username' | 'name' | 'avatar'>;
   _count?: {
     members: number;
   };

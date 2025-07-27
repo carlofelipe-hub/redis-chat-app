@@ -309,7 +309,7 @@ export default function ChatInterface({ user, currentRoom, allRooms }: ChatInter
                 >
                   <Hash className="h-4 w-4 flex-shrink-0" />
                   <span className="text-sm font-medium truncate">{room.name}</span>
-                  {room._count?.members > 0 && (
+                  {room._count?.members && room._count.members > 0 && (
                     <Badge variant="secondary" className="text-xs ml-auto bg-primary/20 border-primary/30 text-primary-foreground">
                       {room._count.members}
                     </Badge>

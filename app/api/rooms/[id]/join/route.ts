@@ -73,6 +73,7 @@ export async function POST(
                 id: true,
                 username: true,
                 name: true,
+                avatar: true,
               },
             },
             _count: {

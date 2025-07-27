@@ -51,7 +51,7 @@ export default function BrowseRoomsDialog({ children, currentRoomId }: BrowseRoo
           (room) =>
             room.name.toLowerCase().includes(query) ||
             room.description?.toLowerCase().includes(query) ||
-            room.owner.username.toLowerCase().includes(query)
+            room.owner?.username.toLowerCase().includes(query)
         )
       );
     }
@@ -209,12 +209,12 @@ export default function BrowseRoomsDialog({ children, currentRoomId }: BrowseRoo
                             </div>
                             <div className="flex items-center gap-1">
                               <Avatar className="h-4 w-4">
-                                <AvatarImage src={room.owner.avatar || undefined} />
+                                <AvatarImage src={room.owner?.avatar || undefined} />
                                 <AvatarFallback className="text-xs bg-gradient-accent text-white">
-                                  {room.owner.username.charAt(0).toUpperCase()}
+                                  {room.owner?.username.charAt(0).toUpperCase()}
                                 </AvatarFallback>
                               </Avatar>
-                              <span>by {room.owner.username}</span>
+                              <span>by {room.owner?.username}</span>
                             </div>
                           </div>
                           

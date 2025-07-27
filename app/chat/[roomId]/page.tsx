@@ -45,6 +45,7 @@ export default async function ChatRoomPage({
           id: true,
           username: true,
           name: true,
+          avatar: true,
         },
       },
       members: {
@@ -91,6 +92,7 @@ export default async function ChatRoomPage({
           id: true,
           username: true,
           name: true,
+          avatar: true,
         },
       },
       _count: {
