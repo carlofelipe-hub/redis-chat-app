@@ -8,8 +8,9 @@ require('dotenv').config();
 const httpServer = createServer();
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:3000",
-    methods: ["GET", "POST"]
+    origin: process.env.CORS_ORIGIN || ["http://localhost:3000", "https://*.proximacentauri.solutions"],
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
@@ -193,9 +194,17 @@ httpServer.on('request', (req, res) => {
   }
 });
 
-const PORT = process.env.WEBSOCKET_PORT || 3001;
+const PORT = process.env.PORT || process.env.WEBSOCKET_PORT || 8080;
 
-httpServer.listen(PORT, () => {
+// Health check endpoint
+httpServer.on('request', (req, res) => {
+  if (req.url === '/health') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ status: 'ok', timestamp: new Date().toISOString() }));
+  }
+});
+
+httpServer.listen(PORT, '0.0.0.0', () => {
   console.log(`🌐 WebSocket server running on port ${PORT}`);
   console.log(`📊 Health check available at http://localhost:${PORT}/health`);
 });
