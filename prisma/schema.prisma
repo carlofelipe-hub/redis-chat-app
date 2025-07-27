@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  username      String    @unique
+  password      String
+  name          String?
+  avatar        String?
+  bio           String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  rooms         RoomMember[]
+  ownedRooms    Room[]
+  sessions      Session[]
+
+  @@index([email])
+  @@index([username])
+}
+
+model Room {
+  id            String    @id @default(cuid())
+  name          String
+  description   String?
+  isPrivate     Boolean   @default(false)
+  maxMembers    Int       @default(100)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  ownerId       String
+  owner         User      @relation(fields: [ownerId], references: [id])
+  members       RoomMember[]
+
+  @@index([ownerId])
+}
+
+model RoomMember {
+  id            String    @id @default(cuid())
+  joinedAt      DateTime  @default(now())
+  role          Role      @default(MEMBER)
+
+  // Relations
+  userId        String
+  user          User      @relation(fields: [userId], references: [id])
+  roomId        String
+  room          Room      @relation(fields: [roomId], references: [id])
+
+  @@unique([userId, roomId])
+  @@index([userId])
+  @@index([roomId])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([token])
+  @@index([userId])
+}
+
+enum Role {
+  OWNER
+  ADMIN
+  MEMBER
+}
