@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getUserFromRequest, createUnauthorizedResponse } from '@/lib/api-helpers';
+import { broadcastPresenceUpdate } from '@/lib/pusher-server';
 
 export async function POST(
   request: NextRequest,
