@@ -25,7 +25,7 @@ export default async function ChatPage() {
         {
           members: {
             some: {
-              userId: user.userId,
+              userId: user.id,
             },
           },
         },

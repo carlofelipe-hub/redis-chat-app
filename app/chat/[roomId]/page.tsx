@@ -33,7 +33,7 @@ export default async function ChatRoomPage({
         {
           members: {
             some: {
-              userId: user.userId,
+              userId: user.id,
             },
           },
         },
@@ -79,7 +79,7 @@ export default async function ChatRoomPage({
         {
           members: {
             some: {
-              userId: user.userId,
+              userId: user.id,
             },
           },
         },
